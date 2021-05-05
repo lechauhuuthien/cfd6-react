@@ -1,4 +1,5 @@
 import React from 'react';
+import Project from './components/Project';
 
 function ProjectPage(props) {
 	return (
@@ -13,148 +14,60 @@ function ProjectPage(props) {
 					</p>
 					<div className="list row">
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (1).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										furnitown
-									</div>
-									<div className="makeby">
-										Hoàn thành với Trần Nghĩa{' '}
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (1).jpg"
+								name="furnitown"
+								makeby="Trần Nghĩa"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (2).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										kymco
-									</div>
-									<div className="makeby">
-										Hoàn thành với Huỳnh Tiến Tài
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (2).jpg"
+								name="kymco"
+								makeby="Huỳnh Tiến Tài"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (3).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										gboxmb
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Văn Tuấn
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (3).jpg"
+								name="gboxmb"
+								makeby="Nguyễn Văn Tuấn"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (4).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										wooder
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Đức Huy
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (1).jpg"
+								name="wooder"
+								makeby="Nguyễn Đức Huy"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (5).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										gboxmb
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Văn Tuấn
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (5).jpg"
+								name="gboxmb"
+								makeby="Nguyễn Văn Tuấn"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (6).jpg"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										wooder
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Đức Huy
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (6).jpg"
+								name="wooder"
+								makeby="Nguyễn Đức Huy"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (1).png"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										gboxmb
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Văn Tuấn
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (1).jpg"
+								name="gboxmb"
+								makeby="Nguyễn Văn Tuấn"
+							/>
 						</a>
 						<a href="#" className="item col-md-6">
-							<div className="wrap">
-								<div className="cover">
-									<img
-										src="/img/project/project (2).png"
-										alt=""
-									/>
-								</div>
-								<div className="info">
-									<div className="name">
-										wooder
-									</div>
-									<div className="makeby">
-										Hoàn thành bởi Nguyễn Đức Huy
-									</div>
-								</div>
-							</div>
+							<Project
+								image="/img/project/project (2).jpg"
+								name="wooder"
+								makeby="Nguyễn Đức Huy"
+							/>
 						</a>
 					</div>
 					<div className="bottom">
