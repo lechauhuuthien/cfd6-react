@@ -4,7 +4,7 @@ function PaymentHistory(props) {
 	return (
 		<div
 			className="tab4"
-			style={{ display: 'none' }}
+			// style={{ display: 'none' }}
 		>
 			<div className="item itemhistory">
 				<div className="name">

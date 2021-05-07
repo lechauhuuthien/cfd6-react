@@ -1,58 +1,153 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function AccountInfo(props) {
+	const [form, setForm] = useState({
+		name: '',
+		phone: '',
+		email: 'vuong.dang@dna.vn',
+		facebook: '',
+		skype: '',
+	});
+	const [error, setError] = useState({
+		name: '',
+		phone: '',
+		facebook: '',
+		skype: '',
+	});
+	/*------------------------------*/
+	function onInputChange(e) {
+		let name = e.target.name;
+		let value = e.target.value;
+
+		setForm({
+			...form,
+			[name]: value,
+		});
+	}
+	/*------------------------------*/
+	function _onSave() {
+		let errorObj = {};
+		/*---------*/
+		if (!form.name.trim()) {
+			errorObj.name = 'Vui lòng nhập họ và tên';
+		} else if (!/^[a-zA-Z\s]*$/.test(form.name)) {
+			errorObj.name = 'Vui lòng nhập họ và tên không chứa số';
+		}
+		/*---------*/
+		if (!form.phone.trim()) {
+			errorObj.phone = 'Vui lòng nhập số điện thoại';
+		} else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
+			errorObj.phone = 'Vui lòng nhập đúng số điện thoại';
+		}
+		/*---------*/
+		if (!form.facebook.trim()) {
+			errorObj.facebook = 'Vui lòng nhập địa chỉ facebook';
+		} else if (
+			!/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
+				form.facebook
+			)
+		) {
+			errorObj.facebook = 'Vui lòng nhập đúng địa chỉ facebook';
+		}
+		/*---------*/
+		if (!form.skype.trim()) {
+			errorObj.skype = 'Vui lòng nhập địa chỉ skype';
+		} else if (!/^((ftp|http|https):\/\/)?www\.skype.com\//.test(form.skype)) {
+			errorObj.skype = 'Vui lòng nhập đúng địa chỉ skype';
+		}
+		/*---------*/
+		if (Object.keys(errorObj).length > 0) {
+			setError(errorObj);
+		} else {
+			console.log('form :>> ', form);
+			setError({});
+		}
+	}
+
+	/*------------------------------*/
+	const { name, phone, email, facebook, skype } = form;
+	/*------------------------------*/
 	return (
 		<div
 			className="tab1"
-			style={{ display: 'none' }}
+			// style={{ display: 'none' }}
 		>
-			<label>
+			<label style={{justifyContent: "space-between"}}>
 				<p>
 					Họ và tên<span>*</span>
 				</p>
-				<input
-					type="text"
-					placeholder="Nguyễn Văn A"
-				/>
+				<div className="input-wrapper">
+					<input
+						value={name}
+						onChange={onInputChange}
+						name="name"
+						type="text"
+						placeholder="Nguyễn Văn A"
+					/>
+					{error.name && <p className="error-text">{error.name}</p>}
+				</div>
 			</label>
-			<label>
+			<label style={{justifyContent: "space-between"}}>
 				<p>
 					Số điện thoại<span>*</span>
 				</p>
-				<input
-					type="text"
-					placeholder="0949******"
-				/>
+				<div className="input-wrapper">
+					<input
+						value={phone}
+						onChange={onInputChange}
+						name="phone"
+						type="text"
+						placeholder="0949******"
+					/>
+					{error.phone && <p className="error-text">{error.phone}</p>}
+				</div>
 			</label>
-			<label>
+			<label style={{justifyContent: "space-between"}}>
 				<p>
 					Email<span>*</span>
 				</p>
-				<input
-					defaultValue="vuong.dang@dna.vn"
-					disabled
-					type="text"
-				/>
+				<div className="input-wrapper">
+					<input
+						value={email}
+						name="email"
+						type="text"
+						disabled
+					/>
+				</div>
 			</label>
-			<label>
+			<label style={{justifyContent: "space-between"}}>
 				<p>
 					Facebook<span>*</span>
 				</p>
-				<input
-					type="text"
-					placeholder="Facebook url"
-				/>
+				<div className="input-wrapper">
+					<input
+						value={facebook}
+						onChange={onInputChange}
+						name="facebook"
+						type="text"
+						placeholder="Facebook url"
+					/>
+					{error.facebook && <p className="error-text">{error.facebook}</p>}
+				</div>
 			</label>
-			<label>
+			<label style={{justifyContent: "space-between"}}>
 				<p>
 					Skype<span>*</span>
 				</p>
-				<input
-					type="text"
-					placeholder="Skype url"
-				/>
+				<div className="input-wrapper">
+					<input
+						value={skype}
+						onChange={onInputChange}
+						name="skype"
+						type="text"
+						placeholder="Skype url"
+					/>
+					{error.skype && <p className="error-text">{error.skype}</p>}
+				</div>
 			</label>
-			<div className="btn main rect">LƯU LẠI</div>
+			<div className="btn main rect" onClick={_onSave}>
+				LƯU LẠI
+			</div>
 		</div>
 	);
 }

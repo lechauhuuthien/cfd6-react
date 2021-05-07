@@ -4,7 +4,7 @@ function MyCourses(props) {
 	return (
 		<div
 			className="tab2"
-			style={{ display: 'none' }}
+			// style={{ display: 'none' }}
 		>
 			<div className="item">
 				<div className="cover">

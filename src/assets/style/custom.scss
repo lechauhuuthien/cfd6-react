@@ -1,0 +1,13 @@
+.input-wrapper {
+	width: calc(100% - 180px);
+	& > input {
+		width: 100% !important;
+	}
+	.error-text {
+		width: 100% !important;
+        margin-top: 5px;
+		font-size: 14px;
+		color: red;
+        font-family: main !important;
+	}
+}

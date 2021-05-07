@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Member({ thumb, name, title }) {
+function Member({ thumb, name, title, myRef }) {
 	return (
 		<div className="wrap">
 			<div className="cover">

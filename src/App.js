@@ -1,4 +1,5 @@
 import './App.css';
+import './assets/style/custom.scss';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import CoinPresentPage from './pages/coinPresent';
@@ -26,7 +27,7 @@ function App() {
 			{/* <FaqPage /> */}
 			{/* <CoinPresentPage /> */}
 			{/* <CooperationPage /> */}
-			{/* <ProfilePage /> */}
+			<ProfilePage />
 			{/* <ProjectPage /> */}
 			{/* <RegisterPage /> */}
 			{/* <TeamPage /> */}

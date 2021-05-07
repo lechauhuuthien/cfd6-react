@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Member from './components/Member';
 
 function TeamPage(props) {
+
 	return (
 		<main className="team" id="main">
 			<section>

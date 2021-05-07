@@ -4,7 +4,7 @@ function MyProjects(props) {
 	return (
 		<div
 			className="tab3"
-			style={{ display: 'none' }}
+			// style={{ display: 'none' }}
 		>
 			<div className="row">
 				<div className="col-md-6 course">
