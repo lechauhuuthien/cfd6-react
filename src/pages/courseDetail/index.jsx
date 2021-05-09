@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams, useRouteMatch } from 'react-router';
 import Accordion from '../../components/Accordion';
 import CourseItem from '../../components/CourseItem';
 
@@ -83,7 +84,7 @@ const TETMP_COURSE_INFO = {
 	],
 };
 
-function CourseDetailPage(props) {
+function CourseDetailPage() {
 	const {
 		title,
 		startTime,
@@ -93,6 +94,10 @@ function CourseDetailPage(props) {
 		content,
         relatedCourses
 	} = TETMP_COURSE_INFO;
+	/*------------------------------*/
+	const {slug} = useParams();
+	console.log('slug :>> ', slug);
+	/*------------------------------*/
 	return (
 		<main className="course-detail" id="main">
 			<section
@@ -393,8 +398,8 @@ function CourseDetailPage(props) {
 						</h2>
 					</div>
 					<div className="list row">
-						{relatedCourses.map((e) => (
-							<CourseItem key={e._id} {...e} />
+						{relatedCourses.map((e, i) => (
+							<CourseItem key={i} {...e} />
 						))}
 					</div>
 				</div>

@@ -5,9 +5,39 @@
 	}
 	.error-text {
 		width: 100% !important;
-        margin-top: 5px;
+		margin-top: 5px;
 		font-size: 14px;
 		color: red;
-        font-family: main !important;
+		font-family: main !important;
 	}
+}
+
+nav {
+	& > ul {
+		li {
+			&.active {
+				background: unset !important;
+			}
+			& > a {
+				&.active {
+					background: #00afab;
+					color: white;
+					transition: all 0.4s;
+				}
+			}
+		}
+	}
+}
+
+.loading-page {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	width: 10px;
+	height: 10px;
+	background: #00afab;
+	border-radius: 100%;
+	// transition: all 2s ease-in-out;
+	z-index: 200;
 }

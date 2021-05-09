@@ -7,7 +7,7 @@ function CourseList({ onlineList, offlineList }) {
 		<>
 			<section className="section-courseoffline">
 				<div className="container">
-					<h2 class="main-title">KHÓA HỌC CFD</h2>
+					<h2 className="main-title">KHÓA HỌC CFD</h2>
 					<p className="top-des">
 						The readable content of a page when looking at its layout. The point of using Lorem
 						Ipsum is that it has a more-or-less normal

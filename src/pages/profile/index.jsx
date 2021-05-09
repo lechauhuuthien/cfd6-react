@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import AccountInfo from './components/AccountInfo';
 import MyCoin from './components/MyCoin';
 import MyCourses from './components/MyCourses';
@@ -6,16 +7,8 @@ import MyProjects from './components/MyProjects';
 import PaymentHistory from './components/PaymentHistory';
 
 function ProfilePage() {
-	const [activeTab, setActiveTab] = useState('info');
-	/*------------------------------*/
-	function _onTabChange(e) {
-		e.preventDefault();
-		let tab = e.target.name;
-		if (tab && tab !== activeTab) {
-			setActiveTab(tab);
-		}
-	}
-	/*------------------------------*/
+	const { url } = useRouteMatch();
+	
 	return (
 		<main className="profile" id="main">
 			<section>
@@ -31,61 +24,21 @@ function ProfilePage() {
 				<div className="container">
 					<div className="tab">
 						<div className="tab-title">
-							<a
-								href="#"
-								name="info"
-								className={activeTab === 'info' ? 'active' : ''}
-								onClick={_onTabChange}
-							>
-								Thông tin tài khoản
-							</a>
-							<a
-								href="#"
-								name="courses"
-								className={activeTab === 'courses' ? 'active' : ''}
-								onClick={_onTabChange}
-							>
-								Khóa học của bạn
-							</a>
-							<a
-								href="#"
-								name="projects"
-								className={activeTab === 'projects' ? 'active' : ''}
-								onClick={_onTabChange}
-							>
-								Dự án đã làm
-							</a>
-							<a
-								href="#"
-								name="payment"
-								className={`${activeTab === 'payment' ? 'active' : ''}`}
-								onClick={_onTabChange}
-							>
-								Lịch sử thanh toán
-							</a>
-							<a
-								href="#"
-								name="coin"
-								className={`${activeTab === 'coin' ? 'active' : ''}`}
-								onClick={_onTabChange}
-							>
-								Quản lý COIN của tôi
-							</a>
+							<NavLink to={`${url}/info`}>Thông tin tài khoản</NavLink>
+							<NavLink to={`${url}/courses`}>Khóa học của bạn</NavLink>
+							<NavLink to={`${url}/projects`}>Dự án đã làm</NavLink>
+							<NavLink to={`${url}/payment`}>Lịch sử thanh toán</NavLink>
+							<NavLink to={`${url}/coin`}>Quản lý COIN của tôi</NavLink>
 						</div>
 						<div className="tab-content">
-							{activeTab === 'info' ? (
-								<AccountInfo />
-							) : activeTab === 'courses' ? (
-								<MyCourses />
-							) : activeTab === 'projects' ? (
-								<MyProjects />
-							) : activeTab === 'payment' ? (
-								<PaymentHistory />
-							) : activeTab === 'coin' ? (
-								<MyCoin />
-							) : (
-								<Fragment />
-							)}
+							<Switch>
+								<Route path={`${url}/info`} component={AccountInfo} />
+								<Route path={`${url}/courses`} component={MyCourses} />
+								<Route path={`${url}/projects`} component={MyProjects} />
+								<Route path={`${url}/payment`} component={PaymentHistory} />
+								<Route path={`${url}/coin`} component={MyCoin} />
+								<Redirect from={`${url}`} to={`${url}/info`} />
+							</Switch>
 						</div>
 					</div>
 				</div>

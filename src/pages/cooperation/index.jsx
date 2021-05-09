@@ -1,76 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useFormValidate from '../../hooks/useFormValidate';
 
 function CooperationPage() {
-	const [form, setForm] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		website: '',
-		title: '',
-		content: '',
-	});
-	const [error, setError] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		website: '',
-		title: '',
-		content: '',
-	});
 	/*------------------------------*/
-	function onInputChange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-
-		setForm({
-			...form,
-			[name]: value,
-		});
-	}
+	const { form, error, onInputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			email: '',
+			website: '',
+			title: '',
+			content: '',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+					pattern: "name"
+				},
+				phone: {
+					pattern: 'phone',
+				},
+				email: {
+					required: true,
+					pattern: 'email',
+				},
+				website: {
+					pattern: 'url',
+				},
+				title: {
+					required: true,
+				},
+				content: {
+					required: true,
+				},
+			},
+			message: {
+				name: {
+					required: "Vui lòng nhập họ và tên",
+					pattern: "Vui lòng nhập họ và tên không chứa số"
+				},
+				phone: {
+					pattern: "Vui lòng nhập đúng số điện thoại Việt Nam"
+				},
+				email: {
+					required: "Vui lòng nhập địa chỉ email",
+					pattern: "Vui lòng nhập đúng định dạng email"
+				},
+				website: {
+					pattern: 'Vui lòng nhập đúng định dạng website',
+				},
+				title: {
+					required: 'Vui lòng nhập tiêu đề',
+				},
+				content: {
+					required: 'Vui lòng nhập nội dung',
+				},
+			}
+		}
+	);
 	/*------------------------------*/
 	function onSubmit() {
-		let errorObj = {};
-		/*---------*/
-		if (!form.name.trim()) {
-			errorObj.name = 'Vui lòng nhập họ và tên';
-		} else if (!/^[a-zA-Z\s]*$/.test(form.name)) {
-			errorObj.name = 'Vui lòng nhập họ và tên không chứa số';
-		}
-		/*---------*/
-		if (form.phone && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorObj.phone = 'Vui lòng nhập đúng số điện thoại';
-		}
-		/*---------*/
-		if (!form.email.trim()) {
-			errorObj.email = 'Vui lòng nhập địa chỉ email';
-		} else if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i.test(form.email)) {
-			errorObj.email = 'Vui lòng nhập đúng địa chỉ email';
-		}
-		/*---------*/
-		if (
-			form.website &&
-			!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
-				form.website
-			)
-		) {
-			errorObj.website = 'Vui lòng nhập đúng địa chỉ website';
-		}
-		/*---------*/
-		if (!form.title.trim()) {
-			errorObj.title = 'Vui lòng nhập tiêu đề';
-		}
-		/*---------*/
-		if (!form.content.trim()) {
-			errorObj.content = 'Vui lòng nhập nội dung';
-		}
+		let errorObj = check();
 		/*---------*/
 		if (Object.keys(errorObj).length > 0) {
-			setError(errorObj);
-		} else {
-			setError({})
 		}
 	}
-
 	/*------------------------------*/
 	const { name, phone, email, website, title, content } = form;
 	/*------------------------------*/
