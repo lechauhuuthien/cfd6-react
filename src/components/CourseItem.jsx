@@ -1,52 +1,55 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function CourseItem({ title, thumbnail, desc, status, teacher, slug }) {
-  return (
-    <div className="col-md-4 course">
-      <div className="wrap">
-        <a className="cover" href="#">
-          <img src={thumbnail} alt="" />
-          {status === "pending" ? (
-            <span className="badge b2">Đang diễn ra</span>
-          ) : status === "finish" ? (
-            <span className="badge b1">Đã kết thúc</span>
-          ) : (
-            <span className="badge b3">Sắp khai giảng</span>
-          )}
+	return (
+		<div className="col-md-4 course">
+			<div className="wrap">
+				<a className="cover" href="#">
+					<img src={thumbnail} alt="" />
+					{status === 'pending' ? (
+						<span className="badge b2">Đang diễn ra</span>
+					) : status === 'finish' ? (
+						<span className="badge b1">Đã kết thúc</span>
+					) : (
+						<span className="badge b3">Sắp khai giảng</span>
+					)}
 
-          <div className="hover">
-            <div className="top">
-              <div className="user">
-                <img src="/img/icon-user-white.svg" alt="" />
-                12
-              </div>
-              <div className="heart">
-                <img src="/img/icon-heart.svg" alt="" /> 100
-              </div>
-            </div>
-            <div className="share">
-              <img src="/img/icon-viewmore.svg" alt="" />
-            </div>
-          </div>
-        </a>
-        <div className="info">
-          <a className="name" href="#">
-            {title}
-          </a>
-          <p className="des">{desc}</p>
-        </div>
-        <div className="bottom">
-          <div className="teacher">
-            <div className="avatar">
-              <img src={teacher.avatar} alt="" />
-            </div>
-            <div className="name">{teacher.name}</div>
-          </div>
-          <div className="register-btn">Đăng Ký</div>
-        </div>
-      </div>
-    </div>
-  );
+					<div className="hover">
+						<div className="top">
+							<div className="user">
+								<img src="/img/icon-user-white.svg" alt="" />
+								12
+							</div>
+							<div className="heart">
+								<img src="/img/icon-heart.svg" alt="" /> 100
+							</div>
+						</div>
+						<div className="share">
+							<img src="/img/icon-viewmore.svg" alt="" />
+						</div>
+					</div>
+				</a>
+				<div className="info">
+					<a className="name" href="#">
+						{title}
+					</a>
+					<p className="des">{desc}</p>
+				</div>
+				<div className="bottom">
+					<div className="teacher">
+						<div className="avatar">
+							<img src={teacher.avatar} alt="" />
+						</div>
+						<div className="name">{teacher.name}</div>
+					</div>
+					<div className="register-btn">
+						<Link to="/register">Đăng Ký</Link>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default CourseItem;

@@ -32,7 +32,7 @@ function CourseList({ onlineList, offlineList }) {
 							<CourseItem key={index} {...course} />
 						))}
 					</div>
-					<div className="text-deco">C</div>
+					{/* <div className="text-deco">C</div> */}
 				</div>
 			</section>
 		</>

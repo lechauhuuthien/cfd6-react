@@ -63,7 +63,8 @@ function CooperationPage() {
 	function onSubmit() {
 		let errorObj = check();
 		/*---------*/
-		if (Object.keys(errorObj).length > 0) {
+		if (Object.keys(errorObj).length === 0) {
+			console.log('form :>> ', form);
 		}
 	}
 	/*------------------------------*/

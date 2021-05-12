@@ -3,7 +3,8 @@ import { useState } from 'react';
 const EMAIL_PATTERN = /^[a-z][a-z0-9_\.]{2,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/i,
 	PHONE_PATTERN = /(84|0[3|5|7|8|9])+([0-9]{8,10})\b/,
 	URL_PATTERN = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/i,
-	NAME_PATTERN = /^[a-zA-Z\s]*$/;
+	NAME_PATTERN = /^[a-zA-Z\s]*$/,
+	FB_PATTERN = /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/
 
 function useFormValidate(initialState, validate) {
 	const [form, setForm] = useState(initialState);
@@ -43,6 +44,7 @@ function useFormValidate(initialState, validate) {
 					if (pattern === 'phone') pattern = PHONE_PATTERN;
 					if (pattern === 'url') pattern = URL_PATTERN;
 					if (pattern === 'name') pattern = NAME_PATTERN;
+					if (pattern === 'facebook') pattern = FB_PATTERN;
 
 					if (!pattern?.test(form[key])) {
 						errorObj[key] = m?.pattern || 'Vui lòng nhập đúng định dạng';

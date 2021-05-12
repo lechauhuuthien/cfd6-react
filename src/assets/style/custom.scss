@@ -38,6 +38,21 @@ nav {
 	height: 10px;
 	background: #00afab;
 	border-radius: 100%;
-	// transition: all 2s ease-in-out;
 	z-index: 200;
+}
+
+.homepage {
+	.banner {
+		.btn {
+			& > a {
+				color: inherit;
+			}
+		}
+	}
+}
+
+.register-btn {
+	& > a { 
+		color: inherit;
+	}
 }

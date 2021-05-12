@@ -1,66 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useFormValidate from '../../../hooks/useFormValidate';
 
-function AccountInfo(props) {
-	const [form, setForm] = useState({
-		name: '',
-		phone: '',
-		email: 'vuong.dang@dna.vn',
-		facebook: '',
-		skype: '',
-	});
-	const [error, setError] = useState({
-		name: '',
-		phone: '',
-		facebook: '',
-		skype: '',
-	});
+function AccountInfo() {
 	/*------------------------------*/
-	function onInputChange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-
-		setForm({
-			...form,
-			[name]: value,
-		});
-	}
+	const { form, error, onInputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			email: 'vuong.dang@dna.vn',
+			facebook: '',
+			skype: '',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+					pattern: 'name',
+				},
+				phone: {
+					required: true,
+					pattern: 'phone',
+				},
+				facebook: {
+					required: true,
+					pattern: 'url',
+				},
+				skype: {
+					required: true,
+					pattern: /^((ftp|http|https):\/\/)?www\.skype.com\//,
+				},
+			},
+			message: {
+				name: {
+					required: 'Vui lòng nhập họ và tên',
+					pattern: 'Vui lòng nhập họ và tên không chứa số',
+				},
+				phone: {
+					required: 'Vui lòng nhập số điện thoại',
+					pattern: 'Vui lòng nhập đúng số điện thoại Việt Nam',
+				},
+				email: {
+					required: 'Vui lòng nhập địa chỉ email',
+					pattern: 'Vui lòng nhập đúng định dạng email',
+				},
+				facebook: {
+					required: 'Vui lòng nhập địa chỉ facebook',
+					pattern: 'Vui lòng nhập đúng định dạng url facebook',
+				},
+				skype: {
+					required: 'Vui lòng nhập địa chỉ skype',
+					pattern: 'Vui lòng nhập đúng định dạng url skype',
+				},
+			},
+		}
+	);
 	/*------------------------------*/
 	function _onSave() {
-		let errorObj = {};
+		let errorObj = check();
 		/*---------*/
-		if (!form.name.trim()) {
-			errorObj.name = 'Vui lòng nhập họ và tên';
-		} else if (!/^[a-zA-Z\s]*$/.test(form.name)) {
-			errorObj.name = 'Vui lòng nhập họ và tên không chứa số';
-		}
-		/*---------*/
-		if (!form.phone.trim()) {
-			errorObj.phone = 'Vui lòng nhập số điện thoại';
-		} else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorObj.phone = 'Vui lòng nhập đúng số điện thoại';
-		}
-		/*---------*/
-		if (!form.facebook.trim()) {
-			errorObj.facebook = 'Vui lòng nhập địa chỉ facebook';
-		} else if (
-			!/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
-				form.facebook
-			)
-		) {
-			errorObj.facebook = 'Vui lòng nhập đúng địa chỉ facebook';
-		}
-		/*---------*/
-		if (!form.skype.trim()) {
-			errorObj.skype = 'Vui lòng nhập địa chỉ skype';
-		} else if (!/^((ftp|http|https):\/\/)?www\.skype.com\//.test(form.skype)) {
-			errorObj.skype = 'Vui lòng nhập đúng địa chỉ skype';
-		}
-		/*---------*/
-		if (Object.keys(errorObj).length > 0) {
-			setError(errorObj);
-		} else {
+		if (Object.keys(errorObj).length === 0) {
 			console.log('form :>> ', form);
-			setError({});
 		}
 	}
 
@@ -72,7 +71,7 @@ function AccountInfo(props) {
 			className="tab1"
 			// style={{ display: 'none' }}
 		>
-			<label style={{justifyContent: "space-between"}}>
+			<label style={{ justifyContent: 'space-between' }}>
 				<p>
 					Họ và tên<span>*</span>
 				</p>
@@ -87,7 +86,7 @@ function AccountInfo(props) {
 					{error.name && <p className="error-text">{error.name}</p>}
 				</div>
 			</label>
-			<label style={{justifyContent: "space-between"}}>
+			<label style={{ justifyContent: 'space-between' }}>
 				<p>
 					Số điện thoại<span>*</span>
 				</p>
@@ -102,20 +101,15 @@ function AccountInfo(props) {
 					{error.phone && <p className="error-text">{error.phone}</p>}
 				</div>
 			</label>
-			<label style={{justifyContent: "space-between"}}>
+			<label style={{ justifyContent: 'space-between' }}>
 				<p>
 					Email<span>*</span>
 				</p>
 				<div className="input-wrapper">
-					<input
-						value={email}
-						name="email"
-						type="text"
-						disabled
-					/>
+					<input value={email} name="email" type="text" disabled />
 				</div>
 			</label>
-			<label style={{justifyContent: "space-between"}}>
+			<label style={{ justifyContent: 'space-between' }}>
 				<p>
 					Facebook<span>*</span>
 				</p>
@@ -130,7 +124,7 @@ function AccountInfo(props) {
 					{error.facebook && <p className="error-text">{error.facebook}</p>}
 				</div>
 			</label>
-			<label style={{justifyContent: "space-between"}}>
+			<label style={{ justifyContent: 'space-between' }}>
 				<p>
 					Skype<span>*</span>
 				</p>

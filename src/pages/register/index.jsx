@@ -1,36 +1,58 @@
 import React, { useState } from 'react';
 import $ from 'jquery';
+import useFormValidate from '../../hooks/useFormValidate';
 
-function RegisterPage(props) {
-	const [form, setForm] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		facebook: '',
-		coin: false,
-		payment: 'transfer',
-		notes: '',
-	});
-	const [error, setError] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		facebook: '',
-		payment: '',
-	});
-	/*------------------------------*/
-	function _onInputChange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-		let type = e.target.type;
-		if (type === 'checkbox') {
-			value = e.target.checked
+function RegisterPage() {
+	const { form, error, onInputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			email: '',
+			facebook: '',
+			coin: false,
+			notes: '',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+					pattern: 'name',
+				},
+				phone: {
+					required: true,
+					pattern: 'phone',
+				},
+				email: {
+					required: true,
+					pattern: 'email',
+				},
+				facebook: {
+					required: true,
+					pattern: 'facebook',
+				},
+			},
+			message: {
+				name: {
+					required: 'Vui lòng nhập họ và tên',
+					pattern: 'Vui lòng nhập họ và tên không chứa số',
+				},
+				phone: {
+					required: 'Vui lòng nhập số điện thoại',
+					pattern: 'Vui lòng nhập đúng số điện thoại Việt Nam',
+				},
+				email: {
+					required: 'Vui lòng nhập địa chỉ email',
+					pattern: 'Vui lòng nhập đúng định dạng email',
+				},
+				facebook: {
+					required: 'Vui lòng nhập địa chỉ facebook',
+					pattern: 'Vui lòng nhập đúng định dạng url facebook',
+				},
+			},
 		}
-		setForm({
-			...form,
-			[name]: value,
-		});
-	}
+	);
+	/*------------------------------*/
+	const [payment, setPayment] = useState('transfer');
 	/*------------------------------*/
 	function _openSelect() {
 		$('.register-course .select .sub').css({ display: 'block' });
@@ -41,56 +63,23 @@ function RegisterPage(props) {
 	/*------------------------------*/
 	function _onPaymentSelect(e, value) {
 		e.preventDefault();
-		if (form.payment !== value) {
-			setForm({
-				...form,
-				payment: value,
-			});
+		if (payment !== value) {
+			setPayment(value);
 		}
 		_closeSelect();
 	}
 	/*------------------------------*/
 	function _onRegister() {
-		let errorObj = {};
+		let errorObj = check();
 		/*---------*/
-		if (!form.name.trim()) {
-			errorObj.name = 'Vui lòng nhập họ và tên';
-		} else if (!/^[a-zA-Z\s]*$/.test(form.name)) {
-			errorObj.name = 'Vui lòng nhập họ và tên không chứa số';
-		}
-		/*---------*/
-		if (!form.phone.trim()) {
-			errorObj.phone = 'Vui lòng nhập số điện thoại';
-		} else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorObj.phone = 'Vui lòng nhập đúng số điện thoại';
-		}
-		/*---------*/
-		if (!form.email.trim()) {
-			errorObj.email = 'Vui lòng nhập địa chỉ email';
-		} else if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i.test(form.email)) {
-			errorObj.email = 'Vui lòng nhập đúng địa chỉ email';
-		}
-		/*---------*/
-		if (!form.facebook.trim()) {
-			errorObj.facebook = 'Vui lòng nhập địa chỉ facebook';
-		} else if (
-			!/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
-				form.facebook
-			)
-		) {
-			errorObj.facebook = 'Vui lòng nhập đúng địa chỉ facebook';
-		}
-		/*---------*/
-		if (Object.keys(errorObj).length > 0) {
-			setError(errorObj);
-		} else {
-			console.log('form :>> ', form);
-			setError({});
+		if (Object.keys(errorObj).length === 0) {
+			let finalForm = { ...form, payment: payment };
+			console.log('finalForm :>> ', finalForm);
 		}
 	}
 	/*------------------------------*/
 
-	const { name, phone, email, facebook, coin, payment, notes } = form;
+	const { name, phone, email, facebook, coin, notes } = form;
 	/*------------------------------*/
 	return (
 		<main className="register-course" id="main">
@@ -118,7 +107,7 @@ function RegisterPage(props) {
 								<div className="input-wrapper">
 									<input
 										value={name}
-										onChange={_onInputChange}
+										onChange={onInputChange}
 										name="name"
 										type="text"
 										placeholder="Họ và tên bạn"
@@ -133,7 +122,7 @@ function RegisterPage(props) {
 								<div className="input-wrapper">
 									<input
 										value={phone}
-										onChange={_onInputChange}
+										onChange={onInputChange}
 										name="phone"
 										type="text"
 										placeholder="Số điện thoại"
@@ -148,7 +137,7 @@ function RegisterPage(props) {
 								<div className="input-wrapper">
 									<input
 										value={email}
-										onChange={_onInputChange}
+										onChange={onInputChange}
 										name="email"
 										type="text"
 										placeholder="Email của bạn"
@@ -163,7 +152,7 @@ function RegisterPage(props) {
 								<div className="input-wrapper">
 									<input
 										value={facebook}
-										onChange={_onInputChange}
+										onChange={onInputChange}
 										name="facebook"
 										type="text"
 										placeholder="https://facebook.com"
@@ -177,7 +166,7 @@ function RegisterPage(props) {
 									Hiện có <strong>300 COIN</strong>
 									{/* Giảm giá còn <span><strong>5.800.000 VND</strong>, còn lại 100 COIN</span> */}
 									{/* Cần ít nhất 200 COIN để giảm giá */}
-									<input type="checkbox" name="coin" checked={coin} onChange={_onInputChange} />
+									<input type="checkbox" name="coin" checked={coin} onChange={onInputChange} />
 									<span className="checkmark" />
 								</div>
 							</label>
@@ -201,7 +190,7 @@ function RegisterPage(props) {
 								<p>Ý kiến cá nhân</p>
 								<input
 									value={notes}
-									onChange={_onInputChange}
+									onChange={onInputChange}
 									name="notes"
 									type="text"
 									placeholder="Mong muốn cá nhân và lịch bạn có thể học."
