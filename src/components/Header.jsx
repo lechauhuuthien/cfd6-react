@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 function Header() {
 	/*------------------------------*/
@@ -8,7 +9,8 @@ function Header() {
 		$('body').toggleClass('menu-is-show');
 	}
 	/*------------------------------*/
-
+	const { currentUser, setIsLoginOpen, setCurrentUser } = useAuth();
+	/*------------------------------*/
 	return (
 		<>
 			<header id="header">
@@ -26,26 +28,48 @@ function Header() {
 						<h1>CFD</h1>
 					</Link>
 					<div className="right">
-						<div className="have-login">
-							<div className="account">
-								<div className="info">
-									<div className="name">Trần Lê Trọng Nghĩa</div>
-									<div className="avatar">
-										<img src="img/avt.png" alt="" />
+						{currentUser ? (
+							<div className="have-login">
+								<div className="account">
+									<div className="info">
+										<div className="name">{currentUser?.name || ''}</div>
+										<div className="avatar">
+											<img src={currentUser?.avatar || ''} alt="" />
+										</div>
 									</div>
 								</div>
+								<div className="hamberger"></div>
+								<div className="sub">
+									<Link to="/profile/courses">Khóa học của tôi</Link>
+									<Link to="/profile">Thông tin tài khoản</Link>
+									<a
+										href="#"
+										onClick={(e) => {
+											e.preventDefault();
+											setCurrentUser(false);
+										}}
+									>
+										Đăng xuất
+									</a>
+								</div>
 							</div>
-							<div className="hamberger"></div>
-							<div className="sub">
-								<Link to="/profile/courses">Khóa học của tôi</Link>
-								<Link to="/profile">Thông tin tài khoản</Link>
-								<a href="#">Đăng xuất</a>
+						) : (
+							<div className="not-login bg-none">
+								<a
+									href="#"
+									className="btn-register"
+									onClick={(e) => {
+										e.preventDefault();
+										setIsLoginOpen(true);
+									}}
+								>
+									Đăng nhập
+								</a>
+								<a href="login.html" className="btn main btn-open-login">
+									Đăng ký
+								</a>
 							</div>
-						</div>
-						{/* <div class="not-login bg-none">
-              <a href="#" class="btn-register">Đăng nhập</a>
-              <a href="login.html" class="btn main btn-open-login">Đăng ký</a>
-          </div> */}
+						)}
 					</div>
 				</div>
 			</header>
