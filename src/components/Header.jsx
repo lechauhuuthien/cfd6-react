@@ -32,7 +32,9 @@ function Header() {
 							<div className="have-login">
 								<div className="account">
 									<div className="info">
-										<div className="name">{currentUser?.name || ''}</div>
+										<div className="name">
+											{currentUser?.first_name + ' ' + currentUser?.last_name || ''}
+										</div>
 										<div className="avatar">
 											<img src={currentUser?.avatar || ''} alt="" />
 										</div>

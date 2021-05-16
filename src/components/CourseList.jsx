@@ -16,7 +16,7 @@ function CourseList({ onlineList, offlineList }) {
 						<h2 className="main-title">Khóa học Offline</h2>
 					</div>
 					<div className="list row">
-						{onlineList.map((course, index) => (
+						{offlineList.map((course, index) => (
 							<CourseItem key={index} {...course} />
 						))}
 					</div>
@@ -28,7 +28,7 @@ function CourseList({ onlineList, offlineList }) {
 						<h2 className="main-title">Khóa học Online</h2>
 					</div>
 					<div className="list row">
-						{offlineList.map((course, index) => (
+						{onlineList.map((course, index) => (
 							<CourseItem key={index} {...course} />
 						))}
 					</div>

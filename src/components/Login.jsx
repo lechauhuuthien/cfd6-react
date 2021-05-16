@@ -36,7 +36,6 @@ export default function Login() {
 			const { username, password } = form;
 			let res = await handleLogin(username, password);
 			if (res?.success) {
-				console.log('here');
 				setIsLoginOpen(false);
 			} else if (res?.error) {
 				setLoginError(res.error);

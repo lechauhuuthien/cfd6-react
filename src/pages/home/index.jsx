@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CourseList from '../../components/CourseList';
+import courseAPI from '../../services/courseAPI';
 import Action from './components/Action';
 import Banner from './components/Banner';
 import Gallery from './components/Gallery';
@@ -132,10 +133,39 @@ const TEMP_REVIEW_LIST = [
 ];
 
 function HomePage() {
+	/*------------------------------*/
+	const [onlineCourses, setOnlineCourses] = useState(null);
+	const [offlineCourses, setofflineCourses] = useState(null);
+	const [review, setReview] = useState(null);
+	const [gallery, setGallery] = useState(null);
+	/*------------------------------*/
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				let res = await courseAPI.home();
+				console.log(res)
+
+				if (res) {
+					res.online && setOnlineCourses(res.online);
+					res.offline && setofflineCourses(res.offline);
+					res.review && setReview(res.review);
+					res.gallery && setGallery(res.gallery);
+				} else if (res.error) {
+					alert(res.error)
+				}
+			} catch (error) {
+				alert(error)
+			}
+		}
+		/*---------*/
+		fetchData()
+		/*---------*/
+	}, []);
+	/*------------------------------*/
 	return (
 		<main className="homepage" id="main">
 			<Banner />
-			<CourseList onlineList={TEMP_ONLINE_LIST} offlineList={TEMP_OFFLINE_LIST} />
+			<CourseList onlineList={onlineCourses} offlineList={offlineCourses} />
 			<Testimonial reviewList={TEMP_REVIEW_LIST} />
 			<Gallery />
 			<Action />

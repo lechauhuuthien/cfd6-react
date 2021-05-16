@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CourseItem({ title, thumbnail, desc, status, teacher, slug }) {
+function CourseItem({ title, thumbnail, short_description, course_status, teacher, slug }) {
 	return (
 		<div className="col-md-4 course">
 			<div className="wrap">
 				<a className="cover" href="#">
-					<img src={thumbnail} alt="" />
-					{status === 'pending' ? (
+					<img src={thumbnail.link} alt="" />
+					{course_status === 'dang-dien-ra' ? (
 						<span className="badge b2">Đang diễn ra</span>
-					) : status === 'finish' ? (
+					) : course_status === 'da-ket-thuc' ? (
 						<span className="badge b1">Đã kết thúc</span>
 					) : (
 						<span className="badge b3">Sắp khai giảng</span>
@@ -34,17 +34,17 @@ function CourseItem({ title, thumbnail, desc, status, teacher, slug }) {
 					<a className="name" href="#">
 						{title}
 					</a>
-					<p className="des">{desc}</p>
+					<p className="des">{short_description}</p>
 				</div>
 				<div className="bottom">
 					<div className="teacher">
 						<div className="avatar">
-							<img src={teacher.avatar} alt="" />
+							<img src={teacher.avatar.link} alt="" />
 						</div>
-						<div className="name">{teacher.name}</div>
+						<div className="name">{teacher.title}</div>
 					</div>
 					<div className="register-btn">
-						<Link to="/register">Đăng Ký</Link>
+						<Link to={`/register/${slug}`}>Đăng Ký</Link>
 					</div>
 				</div>
 			</div>

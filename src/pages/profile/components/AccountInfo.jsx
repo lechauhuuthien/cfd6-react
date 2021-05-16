@@ -1,15 +1,19 @@
 import React from 'react';
+import { useAuth } from '../../../hooks/useAuth';
 import useFormValidate from '../../../hooks/useFormValidate';
+import authAPI from '../../../services/authAPI';
 
-function AccountInfo() {
+function AccountInfo({ first_name, last_name, phone, fb, skype, email }) {
+	/*------------------------------*/
+	const {currentUser, setCurrentUser} = useAuth();
 	/*------------------------------*/
 	const { form, error, onInputChange, check } = useFormValidate(
 		{
-			name: '',
-			phone: '',
-			email: 'vuong.dang@dna.vn',
-			facebook: '',
-			skype: '',
+			name: first_name && last_name ? first_name + last_name : '',
+			phone: phone ? phone : '',
+			email: email ? email : '',
+			facebook: fb ? fb : '',
+			skype: skype ? skype : '',
 		},
 		{
 			rule: {
@@ -55,16 +59,36 @@ function AccountInfo() {
 		}
 	);
 	/*------------------------------*/
-	function _onSave() {
+	async function _onSave() {
 		let errorObj = check();
 		/*---------*/
 		if (Object.keys(errorObj).length === 0) {
-			console.log('form :>> ', form);
+			let updateFirstName = form?.name.split(' ').slice(0, -1).join(' ');
+			let updateLastName = form?.name.split(' ').slice(-1).join(' ');
+			try {
+				let res = await authAPI.update({
+					first_name: updateFirstName || null,
+					last_name: updateLastName || null,
+					phone: form?.phone || null,
+					fb: form?.facebook || null,
+					skype: form?.skype || null,
+				});
+				/*------------------------------*/
+				if (res.data) {
+					setCurrentUser({...currentUser, ...res.data})
+					alert('Thay đổi thành công!')
+				} else if (res.error) {
+					alert(error)
+				}
+				/*------------------------------*/
+			} catch (error) {
+				console.log('error :>> ', error);
+			}
 		}
 	}
 
 	/*------------------------------*/
-	const { name, phone, email, facebook, skype } = form;
+	const { name, facebook } = form;
 	/*------------------------------*/
 	return (
 		<div
@@ -92,7 +116,7 @@ function AccountInfo() {
 				</p>
 				<div className="input-wrapper">
 					<input
-						value={phone}
+						value={form.phone}
 						onChange={onInputChange}
 						name="phone"
 						type="text"
@@ -106,7 +130,7 @@ function AccountInfo() {
 					Email<span>*</span>
 				</p>
 				<div className="input-wrapper">
-					<input value={email} name="email" type="text" disabled />
+					<input value={form.email} name="email" type="text" disabled />
 				</div>
 			</label>
 			<label style={{ justifyContent: 'space-between' }}>
@@ -130,7 +154,7 @@ function AccountInfo() {
 				</p>
 				<div className="input-wrapper">
 					<input
-						value={skype}
+						value={form.skype}
 						onChange={onInputChange}
 						name="skype"
 						type="text"

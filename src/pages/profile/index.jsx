@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import AccountInfo from './components/AccountInfo';
 import MyCoin from './components/MyCoin';
 import MyCourses from './components/MyCourses';
@@ -7,8 +8,11 @@ import MyProjects from './components/MyProjects';
 import PaymentHistory from './components/PaymentHistory';
 
 function ProfilePage() {
+	/*------------------------------*/
 	const { url } = useRouteMatch();
-	
+	/*------------------------------*/
+	const { currentUser } = useAuth();
+	/*------------------------------*/
 	return (
 		<main className="profile" id="main">
 			<section>
@@ -32,7 +36,7 @@ function ProfilePage() {
 						</div>
 						<div className="tab-content">
 							<Switch>
-								<Route path={`${url}/info`} component={AccountInfo} />
+								<Route path={`${url}/info`} component={() => <AccountInfo  {...currentUser}/>} />
 								<Route path={`${url}/courses`} component={MyCourses} />
 								<Route path={`${url}/projects`} component={MyProjects} />
 								<Route path={`${url}/payment`} component={PaymentHistory} />
