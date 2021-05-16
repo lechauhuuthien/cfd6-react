@@ -22,8 +22,8 @@ import RegisterPage from './pages/register';
 import TeamPage from './pages/team';
 
 function App() {
+	/*------------------------------*/
 	let user = JSON.parse(localStorage.getItem('user'));
-	console.log('user :>> ', user);
 	/*------------------------------*/
 	return (
 		<AuthProvider user={user}>

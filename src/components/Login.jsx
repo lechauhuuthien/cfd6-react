@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useAuth } from '../hooks/useAuth';
 import useFormValidate from '../hooks/useFormValidate';
 
 export default function Login() {
+	/*------------------------------*/
+	const [loginError, setLoginError] = useState(null);
+	/*------------------------------*/
 	let { form, onInputChange, error, check } = useFormValidate(
 		{
 			username: '',
@@ -24,21 +27,29 @@ export default function Login() {
 		}
 	);
 	/*------------------------------*/
-	const { setCurrentUser, isLoginOpen, setIsLoginOpen } = useAuth();
+	const { isLoginOpen, setIsLoginOpen, handleLogin } = useAuth();
 	/*------------------------------*/
-	function _login() {
+	async function _login() {
 		let error = check();
 		if (Object.keys(error).length === 0) {
 			// Call API to authen
+			const { username, password } = form;
+			let res = await handleLogin(username, password);
+			if (res?.success) {
+				console.log('here');
+				setIsLoginOpen(false);
+			} else if (res?.error) {
+				setLoginError(res.error);
+			}
 
 			// Test
-			const { username, password } = form;
-			if (username === 'admin@gmail.com' && password === '123456') {
-				setCurrentUser({ name: 'Hữu Thiện', avatar: './img/avt.png' });
-				setIsLoginOpen(false);
-			} else {
-                alert("Sai email hoặc mật khẩu!")
-            }
+			// const { username, password } = form;
+			// if (username === 'admin@gmail.com' && password === '123456') {
+			// 	setCurrentUser({ name: 'Hữu Thiện', avatar: './img/avt.png' });
+			// 	setIsLoginOpen(false);
+			// } else {
+			//     alert("Sai email hoặc mật khẩu!")
+			// }
 		}
 	}
 
@@ -52,6 +63,7 @@ export default function Login() {
 				{/* login-form */}
 				<div className="ct_login" style={{ display: 'block' }}>
 					<h2 className="title">Đăng nhập</h2>
+					{loginError && <p className="error-text">{loginError}</p>}
 					<label>
 						<div className="input-wrapper" style={{ width: '100%' }}>
 							<input
