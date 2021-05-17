@@ -1,10 +1,12 @@
 import React from 'react';
 
 function Accordion({
-	day,
+	learn_date,
 	title,
 	content,
-	active,
+	onAccClick,
+	index,
+	active
 }) {
 	return (
 		<div
@@ -12,8 +14,8 @@ function Accordion({
 				active ? 'active' : ''
 			}`}
 		>
-			<div className="accordion__title">
-				<div className="date">Ngày {day}</div>
+			<div className="accordion__title" onClick={() => onAccClick(index)}>
+				<div className="date">{learn_date}</div>
 				<h3>{title}</h3>
 			</div>
 			<div className="content">{content}</div>

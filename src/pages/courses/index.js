@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CourseList from '../../components/CourseList';
+import courseAPI from '../../services/courseAPI';
 
 const TEMP_ONLINE_LIST = [
 	{
@@ -98,7 +99,32 @@ const TEMP_OFFLINE_LIST = [
 ];
 
 function CoursesPage() {
-	return <CourseList onlineList={TEMP_ONLINE_LIST} offlineList={TEMP_OFFLINE_LIST} />
+	/*------------------------------*/
+	const [onlineCourses, setOnlineCourses] = useState(null);
+	const [offlineCourses, setofflineCourses] = useState(null);
+	/*------------------------------*/
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				let res = await courseAPI.home();
+				console.log(res);
+
+				if (res) {
+					res.online && setOnlineCourses(res.online);
+					res.offline && setofflineCourses(res.offline);
+				} else if (res.error) {
+					alert(res.error);
+				}
+			} catch (error) {
+				alert(error);
+			}
+		}
+		/*---------*/
+		fetchData();
+		/*---------*/
+	}, []);
+	/*------------------------------*/
+	return <CourseList onlineList={onlineCourses} offlineList={offlineCourses} />;
 }
 
 export default CoursesPage;

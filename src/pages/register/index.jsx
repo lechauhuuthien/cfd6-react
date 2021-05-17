@@ -1,8 +1,40 @@
-import React, { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import $ from 'jquery';
 import useFormValidate from '../../hooks/useFormValidate';
+import { useHistory, useRouteMatch } from 'react-router';
+import courseAPI from '../../services/courseAPI';
+import Page404 from '../page404';
+import { modifyPrice } from '../../services/commonFunctions';
 
 function RegisterPage() {
+	/*------------------------------*/
+	const { slug } = useRouteMatch().params;
+	const history = useHistory();
+	/*------------------------------*/
+	const [course, setCourse] = useState(null);
+	const [isNoData, setIsNoData] = useState(false);
+	/*------------------------------*/
+	useEffect(() => {
+		async function fetchCourseData(param) {
+			try {
+				let res = await courseAPI.detail(param);
+
+				if (res.data) {
+					setCourse(res.data);
+				} else {
+					setIsNoData(true);
+				}
+			} catch (error) {
+				alert(error);
+			}
+		}
+
+		if (slug) {
+			fetchCourseData(slug);
+		}
+	}, []);
+
+	/*------------------------------*/
 	const { form, error, onInputChange, check } = useFormValidate(
 		{
 			name: '',
@@ -69,17 +101,42 @@ function RegisterPage() {
 		_closeSelect();
 	}
 	/*------------------------------*/
-	function _onRegister() {
+	async function _onRegister() {
 		let errorObj = check();
 		/*---------*/
 		if (Object.keys(errorObj).length === 0) {
 			let finalForm = { ...form, payment: payment };
-			console.log('finalForm :>> ', finalForm);
+
+			try {
+				let res = await courseAPI.register(
+					{
+						name: finalForm.name,
+						phone: finalForm.phone,
+						email: finalForm.email,
+						fb: finalForm.facebook,
+					},
+					slug
+				);
+
+				if (res.success) {
+					alert(res.success);
+					history.go(0);
+				} else {
+					alert('Đăng ký thất bại!');
+				}
+			} catch (error) {
+				alert(error);
+			}
 		}
 	}
 	/*------------------------------*/
 
 	const { name, phone, email, facebook, coin, notes } = form;
+	/*------------------------------*/
+	if (isNoData) return <Page404 />;
+	if (!course) return <Fragment />;
+	/*------------------------------*/
+	const { title, opening_time, count_video, money } = course;
 	/*------------------------------*/
 	return (
 		<main className="register-course" id="main">
@@ -87,16 +144,16 @@ function RegisterPage() {
 				<div className="container">
 					<div className="wrap container">
 						<div className="main-sub-title">ĐĂNG KÝ</div>
-						<h1 className="main-title">Thực chiến front-end căn bản </h1>
+						<h1 className="main-title">{title}</h1>
 						<div className="main-info">
 							<div className="date">
-								<strong>Khai giảng:</strong> 15/11/2020
+								<strong>Khai giảng:</strong> {opening_time}
 							</div>
 							<div className="time">
-								<strong>Thời lượng:</strong> 18 buổi
+								<strong>Thời lượng:</strong> {count_video} buổi
 							</div>
 							<div className="time">
-								<strong>Học phí:</strong> 6.000.000 VND
+								<strong>Học phí:</strong> {modifyPrice(money)} VND
 							</div>
 						</div>
 						<div className="form">

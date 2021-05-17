@@ -1,5 +1,6 @@
 import React from 'react';
 import useFormValidate from '../../hooks/useFormValidate';
+import contactAPI from '../../services/contactAPI';
 
 function CooperationPage() {
 	/*------------------------------*/
@@ -60,11 +61,21 @@ function CooperationPage() {
 		}
 	);
 	/*------------------------------*/
-	function onSubmit() {
+	async function onSubmit() {
 		let errorObj = check();
 		/*---------*/
 		if (Object.keys(errorObj).length === 0) {
-			console.log('form :>> ', form);
+			try {
+				let res = await contactAPI.contact({...form});
+
+				if (res.success) {
+					alert('Thành công!')
+				} else {
+					alert('Lỗi: Vui lòng thử lại!')
+				}
+			} catch (error) {
+				alert(error)
+			}
 		}
 	}
 	/*------------------------------*/

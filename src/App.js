@@ -41,7 +41,7 @@ function App() {
 					<Route path="/cooperation" component={CooperationPage} />
 					<PrivateRoute path="/profile" component={ProfilePage} />
 					<Route path="/projects" component={ProjectPage} />
-					<Route path="/register" component={RegisterPage} />
+					<Route path="/register/:slug" component={RegisterPage} />
 					<Route path="/team" component={TeamPage} />
 					<Route path="/payment" component={PaymentPage} />
 					<Route component={Page404} />

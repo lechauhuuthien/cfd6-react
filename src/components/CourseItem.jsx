@@ -5,8 +5,8 @@ function CourseItem({ title, thumbnail, short_description, course_status, teache
 	return (
 		<div className="col-md-4 course">
 			<div className="wrap">
-				<a className="cover" href="#">
-					<img src={thumbnail.link} alt="" />
+				<Link className="cover" to={`/courses/${slug}`}>
+					<img src={thumbnail.link || ''} alt="" />
 					{course_status === 'dang-dien-ra' ? (
 						<span className="badge b2">Đang diễn ra</span>
 					) : course_status === 'da-ket-thuc' ? (
@@ -29,7 +29,7 @@ function CourseItem({ title, thumbnail, short_description, course_status, teache
 							<img src="/img/icon-viewmore.svg" alt="" />
 						</div>
 					</div>
-				</a>
+				</Link>
 				<div className="info">
 					<a className="name" href="#">
 						{title}
