@@ -1,11 +1,21 @@
 import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
 import useFormValidate from '../hooks/useFormValidate';
+import {
+	loginAction,
+	setLoginError,
+	setLoginOpen,
+	setLoginStatus,
+} from '../redux/actions/authAction';
+import authAPI from '../services/authAPI';
 
 export default function Login() {
 	/*------------------------------*/
-	const [loginError, setLoginError] = useState(null);
+	// const [loginError, setLoginError] = useState(null);
+	const { loginStatus, loginError } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	/*------------------------------*/
 	let { form, onInputChange, error, check } = useFormValidate(
 		{
@@ -27,19 +37,30 @@ export default function Login() {
 		}
 	);
 	/*------------------------------*/
-	const { isLoginOpen, setIsLoginOpen, handleLogin } = useAuth();
+	// const { isLoginOpen, setIsLoginOpen, handleLogin } = useAuth();
 	/*------------------------------*/
 	async function _login() {
 		let error = check();
 		if (Object.keys(error).length === 0) {
-			// Call API to authen
 			const { username, password } = form;
-			let res = await handleLogin(username, password);
-			if (res?.success) {
-				setIsLoginOpen(false);
-			} else if (res?.error) {
-				setLoginError(res.error);
-			}
+
+			// REDUX
+			// let res = await authAPI.login({ username, password });
+			// if (res?.data) {
+			// 	dispatch(loginAction(res.data));
+			// } else if (res?.error) {
+			// 	dispatch(setLoginError(res.error));
+			// }
+
+			dispatch(loginAction({ username, password }))
+
+			// USECONTEXT
+			// let res = await handleLogin(username, password);
+			// if (res?.success) {
+			// 	setIsLoginOpen(false);
+			// } else if (res?.error) {
+			// 	setLoginError(res.error);
+			// }
 
 			// Test
 			// const { username, password } = form;
@@ -56,7 +77,7 @@ export default function Login() {
 		<div
 			className="popup-form popup-login"
 			id="popupLogin"
-			style={{ display: isLoginOpen ? 'flex' : 'none' }}
+			style={{ display: loginStatus ? 'flex' : 'none' }}
 		>
 			<div className="wrap">
 				{/* login-form */}
@@ -120,7 +141,7 @@ export default function Login() {
 					<input type="text" placeholder="Email" />
 					<div className="btn rect main btn-next">Tiếp theo</div>
 					<div className="back" />
-					<div className="close" onClick={() => setIsLoginOpen(false)}>
+					<div className="close" onClick={() => dispatch(setLoginStatus(false))}>
 						<img src="/img/close-icon.png" alt="" />
 					</div>
 				</div>

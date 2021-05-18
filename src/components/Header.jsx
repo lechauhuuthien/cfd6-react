@@ -1,7 +1,9 @@
 import $ from 'jquery';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { logoutAction, setLoginStatus } from '../redux/actions/authAction';
 
 function Header() {
 	/*------------------------------*/
@@ -9,7 +11,9 @@ function Header() {
 		$('body').toggleClass('menu-is-show');
 	}
 	/*------------------------------*/
-	const { currentUser, setIsLoginOpen, setCurrentUser } = useAuth();
+	// const { user, setIsLoginOpen, setCurrentUser } = useAuth();
+	const { user } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	/*------------------------------*/
 	return (
 		<>
@@ -28,15 +32,13 @@ function Header() {
 						<h1>CFD</h1>
 					</Link>
 					<div className="right">
-						{currentUser ? (
+						{user ? (
 							<div className="have-login">
 								<div className="account">
 									<div className="info">
-										<div className="name">
-											{currentUser?.first_name + ' ' + currentUser?.last_name || ''}
-										</div>
+										<div className="name">{user?.first_name + ' ' + user?.last_name || ''}</div>
 										<div className="avatar">
-											<img src={currentUser?.avatar || ''} alt="" />
+											<img src={user?.avatar || ''} alt="" />
 										</div>
 									</div>
 								</div>
@@ -48,7 +50,7 @@ function Header() {
 										href="#"
 										onClick={(e) => {
 											e.preventDefault();
-											setCurrentUser(false);
+											dispatch(logoutAction());
 										}}
 									>
 										Đăng xuất
@@ -62,7 +64,7 @@ function Header() {
 									className="btn-register"
 									onClick={(e) => {
 										e.preventDefault();
-										setIsLoginOpen(true);
+										dispatch(setLoginStatus(true));
 									}}
 								>
 									Đăng nhập

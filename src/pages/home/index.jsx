@@ -17,7 +17,6 @@ function HomePage() {
 		async function fetchData() {
 			try {
 				let res = await courseAPI.home();
-				console.log(res)
 
 				if (res) {
 					res.online && setOnlineCourses(res.online);

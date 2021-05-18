@@ -3,7 +3,6 @@ import React, { Fragment } from 'react';
 function Testimonial({ reviewList }) {
 	if (!reviewList) return <Fragment />;
 
-	console.log('reviewList :>> ', reviewList);
 	return (
 		<section className="section-testimonial">
 			<div className="container">

@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import './App.css';
 import './assets/style/custom.scss';
@@ -20,13 +21,15 @@ import ProfilePage from './pages/profile';
 import ProjectPage from './pages/project';
 import RegisterPage from './pages/register';
 import TeamPage from './pages/team';
+import store from './redux';
 
 function App() {
 	/*------------------------------*/
-	let user = JSON.parse(localStorage.getItem('user'));
+	// let user = JSON.parse(localStorage.getItem('user'));
 	/*------------------------------*/
 	return (
-		<AuthProvider user={user}>
+		<Provider  store={store}>
+			{/* // <AuthProvider user={user}> */}
 			<div className="App">
 				<Header />
 				<Nav />
@@ -48,7 +51,8 @@ function App() {
 				</Switch>
 				<Footer />
 			</div>
-		</AuthProvider>
+			{/* // </AuthProvider> */}
+		</Provider>
 	);
 }
 
