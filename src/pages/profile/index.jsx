@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import AccountInfo from './components/AccountInfo';
@@ -11,7 +12,9 @@ function ProfilePage() {
 	/*------------------------------*/
 	const { url } = useRouteMatch();
 	/*------------------------------*/
-	const { currentUser } = useAuth();
+	// const { currentUser } = useAuth();
+	const { user } = useSelector((state) => state.auth);
+	console.log('user :>> ', user);
 	/*------------------------------*/
 	return (
 		<main className="profile" id="main">
@@ -36,7 +39,7 @@ function ProfilePage() {
 						</div>
 						<div className="tab-content">
 							<Switch>
-								<Route path={`${url}/info`} component={() => <AccountInfo  {...currentUser}/>} />
+								<Route path={`${url}/info`} component={() => <AccountInfo {...user} />} />
 								<Route path={`${url}/courses`} component={MyCourses} />
 								<Route path={`${url}/projects`} component={MyProjects} />
 								<Route path={`${url}/payment`} component={PaymentHistory} />

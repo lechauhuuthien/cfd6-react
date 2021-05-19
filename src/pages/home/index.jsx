@@ -40,7 +40,7 @@ function HomePage() {
 			<Banner />
 			<CourseList onlineList={onlineCourses} offlineList={offlineCourses} />
 			<Testimonial reviewList={review} />
-			<Gallery gallery={gallery}/>
+			<Gallery gallery={gallery || []}/>
 			<Action />
 		</main>
 	);

@@ -1,16 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
+import { setLoginStatus } from '../redux/actions/authAction';
 
 function PrivateRoute(props) {
-	const { currentUser, setIsLoginOpen } = useAuth();
-    /*------------------------------*/
-	if (!currentUser) {
+	const { user } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+	/*------------------------------*/
+	if (!user) {
 		setTimeout(() => {
-			setIsLoginOpen(true);
+			dispatch(setLoginStatus(true));
 		}, 100);
 		return <Redirect to="/" />;
 	}
-    /*------------------------------*/
+	/*------------------------------*/
 	return <Route {...props} />;
 }
 

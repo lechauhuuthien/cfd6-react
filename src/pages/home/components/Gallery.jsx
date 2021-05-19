@@ -6,6 +6,7 @@ const $ = window.$;
 function Gallery({ gallery }) {
 	let listRef = useRef();
 	/*------------------------------*/
+	console.log('gallery :>> ', gallery);
 	useEffect(() => {
 		$(listRef.current).flickity({
 			contain: true,
@@ -23,15 +24,15 @@ function Gallery({ gallery }) {
 			<div className="textbox">
 				<h2 className="main-title">Chúng ta là một team</h2>
 			</div>
-			{gallery ? (
-				<div className="list" ref={listRef}>
-					{gallery.map((elem, i) => {
+			<div className="list" ref={listRef}>
+				{gallery.length > 0 ? (
+					gallery.map((elem, i) => {
 						return <img key={i} data-flickity-lazyload={elem} alt="" />;
-					})}
-				</div>
-			) : (
-				<Fragment />
-			)}
+					})
+				) : (
+					<Fragment />
+				)}
+			</div>
 			<div className="controls">
 				<div className="btn_ctr prev" />
 				<span>Trượt qua</span>
