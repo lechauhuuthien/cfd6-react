@@ -5,7 +5,9 @@ import Action from './components/Action';
 import Banner from './components/Banner';
 import Gallery from './components/Gallery';
 import Testimonial from './components/Testimonial';
+// import $ from 'jquery'
 
+const $ = window.$;
 function HomePage() {
 	/*------------------------------*/
 	const [onlineCourses, setOnlineCourses] = useState(null);
@@ -24,15 +26,26 @@ function HomePage() {
 					res.review && setReview(res.review);
 					res.gallery && setGallery(res.gallery);
 				} else if (res.error) {
-					alert(res.error)
+					alert(res.error);
 				}
 			} catch (error) {
-				alert(error)
+				alert(error);
 			}
 		}
 		/*---------*/
-		fetchData()
+		fetchData();
 		/*---------*/
+	}, []);
+	useEffect(() => {
+		$('.homepage .section-gallery .list').flickity({
+			contain: true,
+			wrapAround: false,
+			freeScroll: true,
+			cellAlign: 'left',
+			lazyLoad: 3,
+			imagesLoaded: true,
+			prevNextButtons: false,
+		});
 	}, []);
 	/*------------------------------*/
 	return (
@@ -40,7 +53,7 @@ function HomePage() {
 			<Banner />
 			<CourseList onlineList={onlineCourses} offlineList={offlineCourses} />
 			<Testimonial reviewList={review} />
-			<Gallery gallery={gallery || []}/>
+			<Gallery gallery={gallery || []} />
 			<Action />
 		</main>
 	);
