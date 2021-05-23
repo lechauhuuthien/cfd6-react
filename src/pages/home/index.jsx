@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import CourseList from '../../components/CourseList';
 import courseAPI from '../../services/courseAPI';
 import Action from './components/Action';
 import Banner from './components/Banner';
 import Gallery from './components/Gallery';
 import Testimonial from './components/Testimonial';
-// import $ from 'jquery'
-
-const $ = window.$;
 function HomePage() {
 	/*------------------------------*/
 	const [onlineCourses, setOnlineCourses] = useState(null);
@@ -36,18 +34,8 @@ function HomePage() {
 		fetchData();
 		/*---------*/
 	}, []);
-	useEffect(() => {
-		$('.homepage .section-gallery .list').flickity({
-			contain: true,
-			wrapAround: false,
-			freeScroll: true,
-			cellAlign: 'left',
-			lazyLoad: 3,
-			imagesLoaded: true,
-			prevNextButtons: false,
-		});
-	}, []);
 	/*------------------------------*/
+	if (!onlineCourses || !offlineCourses || !review || !gallery) return <Fragment />;
 	return (
 		<main className="homepage" id="main">
 			<Banner />

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router';
-import { useAuth } from '../hooks/useAuth';
 import { setLoginStatus } from '../redux/actions/authAction';
 
 function PrivateRoute(props) {

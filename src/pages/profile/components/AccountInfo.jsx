@@ -1,15 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useAuth } from '../../../hooks/useAuth';
 import useFormValidate from '../../../hooks/useFormValidate';
+import { updateUser } from '../../../redux/actions/authAction';
 import authAPI from '../../../services/authAPI';
 
 function AccountInfo({ first_name, last_name, phone, fb, skype, email }) {
 	/*------------------------------*/
-	const {currentUser, setCurrentUser} = useAuth();
+	// const {currentUser, setCurrentUser} = useAuth();
+	const dispatch = useDispatch();
 	/*------------------------------*/
 	const { form, error, onInputChange, check } = useFormValidate(
 		{
-			name: first_name && last_name ? first_name + last_name : '',
+			name: first_name && last_name ? first_name + " " + last_name : '',
 			phone: phone ? phone : '',
 			email: email ? email : '',
 			facebook: fb ? fb : '',
@@ -66,23 +69,18 @@ function AccountInfo({ first_name, last_name, phone, fb, skype, email }) {
 			let updateFirstName = form?.name.split(' ').slice(0, -1).join(' ');
 			let updateLastName = form?.name.split(' ').slice(-1).join(' ');
 			try {
-				let res = await authAPI.update({
-					first_name: updateFirstName || null,
-					last_name: updateLastName || null,
-					phone: form?.phone || null,
-					fb: form?.facebook || null,
-					skype: form?.skype || null,
-				});
-				/*------------------------------*/
-				if (res.data) {
-					setCurrentUser({...currentUser, ...res.data})
-					alert('Thay đổi thành công!')
-				} else if (res.error) {
-					alert(error)
-				}
-				/*------------------------------*/
+				let res = await dispatch(
+					updateUser({
+						first_name: updateFirstName || null,
+						last_name: updateLastName || null,
+						phone: form?.phone || null,
+						fb: form?.facebook || null,
+						skype: form?.skype || null,
+					})
+				);
+
+				res && alert(res);
 			} catch (error) {
-				console.log('error :>> ', error);
 			}
 		}
 	}

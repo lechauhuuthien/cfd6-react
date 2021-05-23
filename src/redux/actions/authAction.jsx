@@ -1,5 +1,5 @@
 import authAPI from '../../services/authAPI';
-import { LOGIN, LOGOUT, SET_LOGIN_ERROR, SET_LOGIN_STATUS } from '../type';
+import { LOGIN, LOGOUT, SET_LOGIN_ERROR, SET_LOGIN_STATUS, UPDATE_USER } from '../type';
 
 export function loginAction(data) {
 	return async (dispatch) => {
@@ -30,4 +30,18 @@ export function setLoginStatus(status) {
 		type: SET_LOGIN_STATUS,
 		payload: status,
 	};
+}
+export function updateUser(data) {
+	return async (dispatch) => {
+		let res = await authAPI.update(data);
+		if (res?.data) {
+			dispatch({
+				type: UPDATE_USER,
+				payload: res.data
+			})
+			return 'Thay đổi thành công'
+		} else if (res.error) {
+			return res.error
+		}
+	}
 }

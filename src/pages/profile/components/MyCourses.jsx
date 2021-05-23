@@ -8,7 +8,7 @@ function MyCourses(props) {
 		>
 			<div className="item">
 				<div className="cover">
-					<img src="img/img3.png" alt="" />
+					<img src="/img/img3.png" alt="" />
 				</div>
 				<div className="info">
 					<a href="#" className="name">
@@ -36,7 +36,7 @@ function MyCourses(props) {
 						</div>
 						<div className>
 							<img
-								src="img/user.svg"
+								src="/img/user.svg"
 								alt=""
 								className="icon"
 							/>
@@ -59,7 +59,7 @@ function MyCourses(props) {
 			</div>
 			<div className="item">
 				<div className="cover">
-					<img src="img/img7.png" alt="" />
+					<img src="/img/img7.png" alt="" />
 				</div>
 				<div className="info">
 					<a href="#" className="name">
@@ -87,7 +87,7 @@ function MyCourses(props) {
 						</div>
 						<div className>
 							<img
-								src="img/user.svg"
+								src="/img/user.svg"
 								alt=""
 								className="icon"
 							/>

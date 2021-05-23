@@ -117,10 +117,9 @@ function RegisterPage() {
 					},
 					slug
 				);
-
 				if (res.success) {
 					alert(res.success);
-					history.go(0);
+					history.push('/profile');
 				} else {
 					alert('Đăng ký thất bại!');
 				}

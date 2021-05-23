@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SET_LOGIN_ERROR, SET_LOGIN_STATUS } from '../type';
+import { LOGIN, LOGOUT, SET_LOGIN_ERROR, SET_LOGIN_STATUS, UPDATE_USER } from '../type';
 
 const initialState = {
 	user: JSON.parse(localStorage.getItem('user')),
@@ -33,6 +33,13 @@ export default function authReducer(state = initialState, action) {
 			return {
 				...state,
 				loginStatus: action.payload,
+			};
+
+		case UPDATE_USER:
+			localStorage.setItem('user', JSON.stringify({...JSON.parse(localStorage.getItem('user')), ...action.payload}));
+			return {
+				...state,
+				user: {...action.payload},
 			};
 
 		default:
