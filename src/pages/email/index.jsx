@@ -2,6 +2,13 @@ import React, { useEffect } from 'react';
 
 function EmailPage() {
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
+	
+	useEffect(() => {
 		let headerNode = document.querySelector(
 			'header'
 		);

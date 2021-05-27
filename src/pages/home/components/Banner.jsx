@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-function Banner(props) {
+const $ = window.$;
+function Banner() {
+	useEffect(() => {
+		function loadVideoBG() {
+			let videoBgWrap = $('.banner .video-bg'),
+				srcVideoBg = videoBgWrap.data('src');
+			setTimeout(function () {
+				videoBgWrap.html(
+					'<video autoplay loop muted><source src="' +
+						srcVideoBg +
+						'" type="video/mp4">Your browser does not support the video tag.</video>'
+				);
+			}, 800);
+		}
+		if ($('body').innerWidth() > 768) {
+			loadVideoBG();
+		}
+	}, []);
 	return (
 		<div className="banner jarallax">
 			<div className="container">

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -14,6 +14,13 @@ function ProfilePage() {
 	/*------------------------------*/
 	// const { currentUser } = useAuth();
 	const { user } = useSelector((state) => state.auth);
+	/*------------------------------*/
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
 	/*------------------------------*/
 	return (
 		<main className="profile" id="main">

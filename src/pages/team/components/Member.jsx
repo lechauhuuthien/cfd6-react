@@ -2,7 +2,7 @@ import React from 'react';
 
 function Member({ thumb, name, title, myRef }) {
 	return (
-		<div className="wrap">
+		<div className="wrap" style={{height: 'auto'}}>
 			<div className="cover">
 				<img src={thumb} alt="thumb" />
 			</div>

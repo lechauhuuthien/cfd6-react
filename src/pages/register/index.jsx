@@ -15,6 +15,13 @@ function RegisterPage() {
 	const [isNoData, setIsNoData] = useState(false);
 	/*------------------------------*/
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
+	/*------------------------------*/
+	useEffect(() => {
 		async function fetchCourseData(param) {
 			try {
 				let res = await courseAPI.detail(param);

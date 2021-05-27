@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Project from './components/Project';
 
-function ProjectPage(props) {
+function ProjectPage() {
+	/*------------------------------*/
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
+	/*------------------------------*/
 	return (
 		<main className="projectpage" id="main">
 			<section className="section-1">

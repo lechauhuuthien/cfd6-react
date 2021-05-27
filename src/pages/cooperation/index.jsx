@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useFormValidate from '../../hooks/useFormValidate';
 import contactAPI from '../../services/contactAPI';
 
 function CooperationPage() {
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
 	/*------------------------------*/
 	const { form, error, onInputChange, check } = useFormValidate(
 		{

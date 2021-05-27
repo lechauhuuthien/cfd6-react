@@ -17,6 +17,12 @@ function CourseDetailPage() {
 	const { slug } = useParams();
 	/*------------------------------*/
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
+	useEffect(() => {
 		async function fetchCourseData(param) {
 			try {
 				let res = await courseAPI.detail(param);
@@ -94,9 +100,9 @@ function CourseDetailPage() {
 								<strong>Thời lượng:</strong> {count_video || ''} buổi
 							</div>
 						</div>
-						<div className="btn white round" style={{ '--color-btn': '#70b6f1' }}>
+						<Link to={`/register/${slug}`} className="btn white round" style={{ '--color-btn': '#70b6f1' }}>
 							đăng ký
-						</div>
+						</Link>
 					</div>
 				</div>
 				<div className="bottom">
@@ -187,7 +193,7 @@ function CourseDetailPage() {
 						<div className="user">
 							<img src="/img/user-group-icon.png" alt="" /> 12 bạn đã đăng ký
 						</div>
-						<div className="btn main btn-register round">đăng ký</div>
+						<Link to={`/register/${slug}`} className="btn main btn-register round">đăng ký</Link>
 						<div className="btn-share btn overlay round btn-icon">
 							<img src="/img/facebook.svg" alt="" />
 						</div>

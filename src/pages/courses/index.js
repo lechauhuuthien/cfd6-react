@@ -104,6 +104,12 @@ function CoursesPage() {
 	const [offlineCourses, setofflineCourses] = useState(null);
 	/*------------------------------*/
 	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
+	useEffect(() => {
 		async function fetchData() {
 			try {
 				let res = await courseAPI.home();

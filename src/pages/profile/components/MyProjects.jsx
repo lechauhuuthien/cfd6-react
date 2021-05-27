@@ -9,15 +9,15 @@ function MyProjects(props) {
 			<div className="row">
 				<div className="col-md-6 course">
 					<div className="wrap">
-						<a href="#" className="cover">
-							<img src="/img/img8.png" alt="" />
+						<a href="#" className="cover" style={{minHeight: "220px"}}>
+							<img src="/img/furnitown.jpg" alt="" />
 						</a>
 						<div className="info">
 							<a href="#" className="name">
 								Furnitown
 							</a>
 							<p className="des">
-								Dự án hoàn thành trong khóa CFD1
+								Dự án hoàn thành trong khóa CFD5
 								Offline của CFD Team.
 							</p>
 						</div>
@@ -38,8 +38,8 @@ function MyProjects(props) {
 				</div>
 				<div className="col-md-6 course">
 					<div className="wrap">
-						<a href="#" className="cover">
-							<img src="/img/img8.png" alt="" />
+						<a href="#" className="cover" style={{minHeight: "220px"}}>
+							<img src='/img/gbox.jpg' alt="" />
 						</a>
 						<div className="info">
 							<a href="#" className="name">

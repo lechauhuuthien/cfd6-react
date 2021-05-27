@@ -1,6 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Footer(props) {
+function Footer() {
+	function handleScrollTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}
+
 	return (
 		<footer id="footer">
 			<div className="container">
@@ -27,22 +35,29 @@ function Footer(props) {
 						<nav>
 							<ul>
 								<li>
-									<a href="#">Trang chủ</a>
+									<Link href="/">Trang chủ</Link>
 								</li>
 								<li>
-									<a href="#">Khóa học</a>
+									<Link href="/courses">Khóa học</Link>
 								</li>
 								<li>
-									<a href="#">Thanh toán</a>
+									<Link to="/profile/payment">Thanh toán</Link>
 								</li>
 								<li>
-									<a href="#">Điều khoản</a>
+									<a href="/">Điều khoản</a>
 								</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
-				<a href="#" className="back-to-top">
+				<a
+					href="#"
+					className="back-to-top"
+					onClick={(e) => {
+						e.preventDefault();
+						handleScrollTop();
+					}}
+				>
 					<div className="line" />
 					CUỘN LÊN
 				</a>

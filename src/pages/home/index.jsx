@@ -6,6 +6,7 @@ import Action from './components/Action';
 import Banner from './components/Banner';
 import Gallery from './components/Gallery';
 import Testimonial from './components/Testimonial';
+
 function HomePage() {
 	/*------------------------------*/
 	const [onlineCourses, setOnlineCourses] = useState(null);
@@ -13,6 +14,12 @@ function HomePage() {
 	const [review, setReview] = useState(null);
 	const [gallery, setGallery] = useState(null);
 	/*------------------------------*/
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	}, []);
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -34,8 +41,14 @@ function HomePage() {
 		fetchData();
 		/*---------*/
 	}, []);
+
 	/*------------------------------*/
-	if (!onlineCourses || !offlineCourses || !review || !gallery) return <Fragment />;
+	if (!onlineCourses || !offlineCourses || !review || !gallery)
+		return (
+			<main className="homepage" id="main">
+				<Banner />
+			</main>
+		);
 	return (
 		<main className="homepage" id="main">
 			<Banner />

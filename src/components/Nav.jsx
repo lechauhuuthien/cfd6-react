@@ -39,11 +39,11 @@ function Nav() {
 							Khóa Học
 						</NavLink>
 					</li>
-					<li>
+					{/* <li>
 						<NavLink onClick={onLinkClick} to="/projects">
 							Dự Án
 						</NavLink>
-					</li>
+					</li> */}
 					<li>
 						<NavLink onClick={onLinkClick} to="/cooperation">
 							Liên hệ
